@@ -37,19 +37,11 @@
     <a-scene embedded arjs="patternRatio: 0.80">
       <a-marker type="pattern" url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt">
         
-        <!-- Przezroczysty Prostopadłościan -->
-        <a-box position="0 0 0" rotation="0 0 0" color="#4CC3D9" scale="1 1 1" opacity="0.5"></a-box>
-
-        <!-- Kula wewnątrz prostopadłościanu -->
-        <a-sphere id="colorSphere" position="0 0 0" radius="0.25" color="#FFFFFF"></a-sphere>
-
-        <!-- Portal z shaderem -->
-        <a-plane position="0 0.51 0" rotation="-90 0 0" width="1" height="1"
-          material="shader: portal; side: double">
-        </a-plane>
-
-        <!-- Powiększony kubik w środku portalu -->
-        <a-box position="0 0.51 0" scale="0.5 0.5 0.5" color="#FF0000"></a-box>
+  <a-entity gltf-model="url(https://cdn.glitch.global/5bf4d669-ea93-4da0-b7fa-205ee046ca5a/low_poly_miku_hatsune.glb?v=1740597738285)" 
+                  scale="0.05 0.05 0.05" 
+                  position="0 0.55 0.2" 
+                  rotation="0 180 0">
+        </a-entity>
 
       </a-marker>
       <a-entity camera></a-entity>
