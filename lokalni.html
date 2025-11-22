@@ -17,18 +17,32 @@
     </script>
   </head>
   <body>
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; patternRatio: 0.80;">
+    <a-scene 
+      embedded 
+      arjs="sourceType: webcam; 
+            debugUIEnabled: true; 
+            patternRatio: 0.80;"
+      renderer="logarithmicDepthBuffer: true;"
+      vr-mode-ui="enabled: false">
 
       <!-- MARKER PATTERN -->
-      <a-marker type="pattern" url="/home/project/pattern-adobe-express-qr-code (13).patt">
+      <a-marker 
+        type="pattern" 
+        url="https://raw.githubusercontent.com/solrime/lokalni/main/pattern-adobe-express-qr-code-(13).patt"
+        emitevents="true"
+        cursor="fuse: false;"
+        raycaster="objects: .clickable">
+        
         <a-box 
           position="0 0.5 0" 
           rotation="0 45 0"
           color="#4CC3D9"
-          scale="1 1 1">
+          scale="0.5 0.5 0.5"
+          class="clickable">
         </a-box>
       </a-marker>
 
+      <!-- Camera -->
       <a-entity camera></a-entity>
     </a-scene>
   </body>
