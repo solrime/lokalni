@@ -19,19 +19,10 @@
   <body>
     <a-scene embedded arjs="patternRatio: 0.80;">
 
-      <a-plane 
-        src="https://cdn.glitch.global/1d61ef10-e12e-4b07-978b-e570c532dd0e/2.png?v=1741910255708"
-        position="-2 0 0" 
-        width="1" 
-        height="1"
-        rotation="-90 0 0"
-        material="shader: differenceShader; transparent: true; alphaTest: 0.5;depthTest: false; depthWrite: false;"
-        custom-blend-mode>
-      </a-plane>
 
-      <a-marker type="pattern" url="https://cdn.glitch.global/1d61ef10-e12e-4b07-978b-e570c532dd0e/pattern-adobe-express-qr-code%20(7).patt?v=1741910125462">
+      <a-marker type="pattern" url="https://github.com/solrime/lokalni/commit/4bf735d7a64886ac4b3a931a6f78f3446cf0ac422">
         <a-plane 
-          src="https://cdn.glitch.global/1d61ef10-e12e-4b07-978b-e570c532dd0e/1.png?v=1741910045146"
+          src="https://pl.pinterest.com/pin/4433299625871455/"
           position="0 0 -1.5" 
           width="1" 
           height="1"
@@ -41,79 +32,7 @@
         </a-plane>
       </a-marker>
 
-      <a-marker type="pattern" url="https://cdn.glitch.global/1d61ef10-e12e-4b07-978b-e570c532dd0e/pattern-kod2.patt?v=1741912569121">
-        <a-plane 
-          src="https://cdn.glitch.global/1d61ef10-e12e-4b07-978b-e570c532dd0e/3.png?v=1741911325231"
-          position="-2 0 0" 
-          width="2" 
-          height="2"
-          rotation="-90 0 0"
-          material="shader: standard; transparent: true; alphaTest: 0.5;depthTest: false; depthWrite: false;"
-          opacity="0.9">
-        </a-plane>
-      </a-marker>
 
-      <a-marker type="pattern" url="https://cdn.glitch.global/1d61ef10-e12e-4b07-978b-e570c532dd0e/pattern-kod3.patt?v=1741912711571">
-        <a-plane 
-          src="https://cdn.glitch.global/1d61ef10-e12e-4b07-978b-e570c532dd0e/4.png?v=1741911333118"
-          position="-2 0 0" 
-          width="2" 
-          height="2"
-          rotation="-90 0 0"
-          material="shader: standard; transparent: true; alphaTest: 0.5;depthTest: false; depthWrite: false;"
-          opacity="0.9">
-        </a-plane>
-      </a-marker>
-
-      <a-marker type="pattern" url="https://cdn.glitch.global/1d61ef10-e12e-4b07-978b-e570c532dd0e/pattern-kod4.patt?v=1741912743460">
-        <a-plane 
-          src="https://cdn.glitch.global/1d61ef10-e12e-4b07-978b-e570c532dd0e/4.png?v=1741911333118"
-          position="-2 0 0" 
-          width="2" 
-          height="2"
-          rotation="-90 0 0"
-          material="shader: standard; transparent: true; alphaTest: 0.5;depthTest: false; depthWrite: false;"
-          opacity="0.9">
-        </a-plane>
-      </a-marker>
-
-      <a-marker type="pattern" url="https://cdn.glitch.global/1d61ef10-e12e-4b07-978b-e570c532dd0e/pattern-kod5.patt?v=1741913019469">
-        <a-plane 
-          src="https://cdn.glitch.global/1d61ef10-e12e-4b07-978b-e570c532dd0e/5.png?v=1741911335786"
-          position="-2 0 0" 
-          width="2" 
-          height="2"
-          rotation="-90 0 0"
-          material="shader: differenceShader; transparent: true; alphaTest: 0.5;depthTest: false; depthWrite: false;"
-          opacity="0.9">
-        </a-plane>
-      </a-marker>
-
-      <script>
-        AFRAME.registerShader("differenceShader", {
-          schema: {
-            src: { type: "map", is: "uniform", default: "#texture1" }
-          },
-          vertexShader: `
-            varying vec2 vUv;
-            void main() {
-              vUv = uv;
-              gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-            }
-          `,
-          fragmentShader: `
-            uniform sampler2D src;
-            varying vec2 vUv;
-
-            void main() {
-              vec4 color = texture2D(src, vUv);
-              vec4 bgColor = vec4(1.0, 1.0, 1.0, 1.0);
-              vec4 diff = vec4(abs(color.rgb - bgColor.rgb), color.a);
-              gl_FragColor = diff;
-            }
-          `
-        });
-      </script>
 
       <a-entity camera look-at="#marker"></a-entity>
     </a-scene>
