@@ -45,5 +45,14 @@
       <!-- Camera -->
       <a-entity camera></a-entity>
     </a-scene>
+
+    <script>
+  document.querySelector('#marker').addEventListener('markerFound', () => {
+    console.log('Marker znaleziony!');
+  });
+  document.querySelector('#marker').addEventListener('markerLost', () => {
+    console.log('Marker utracony!');
+  });
+</script>
   </body>
 </html>
