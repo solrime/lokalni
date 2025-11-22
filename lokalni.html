@@ -3,25 +3,20 @@
   <head>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <script>
-      AFRAME.registerComponent('custom-blend-mode', {
-        init: function () {
-          let mesh = this.el.getObject3D('mesh');
-          if (mesh) {
-            mesh.material.blending = THREE.CustomBlending;
-            mesh.material.blendEquation = THREE.ReverseSubtractEquation;
-            mesh.material.needsUpdate = true;
-          }
-        }
-      });
-    </script>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
   </head>
   <body>
     <a-scene 
       embedded 
       arjs="sourceType: webcam; 
             debugUIEnabled: true; 
-            patternRatio: 0.80;"
+            detectionMode: mono; 
+            matrixCodeType: 3x3;"
       renderer="logarithmicDepthBuffer: true;"
       vr-mode-ui="enabled: false">
 
