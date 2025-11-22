@@ -9,13 +9,12 @@
     <a-scene embedded arjs="patternRatio: 0.80">
       <a-marker type="pattern" url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt">
         
-   <a-gltf-model
-          src="oko.glb"
+ <a-entity gltf-model="url(/home/project/oko.glb)" >
+      
           position="0 0 0"
           rotation="0 0 0"
           scale="1 1 1">
-        </a-gltf-model>
-
+ </a-entity>
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
