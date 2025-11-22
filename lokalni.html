@@ -25,71 +25,21 @@
         id="marker"
         type="pattern" 
         url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt"
-        emitevents="true"
-        cursor="fuse: false;"
-        raycaster="objects: .clickable"
-        smooth="true"
-        smoothCount="10"
-        smoothTolerance="0.01"
-        smoothThreshold="5">
+   
         
         <!-- Prosty box jako test -->
         <a-box 
           position="0 0.5 0" 
           rotation="0 45 0"
-          color="#4CC3D9"
-          scale="0.5 0.5 0.5"
-          class="clickable"
-          animation="property: rotation; to: 0 405 0; loop: true; dur: 3000">
+
         </a-box>
-        
-        <!-- Dodatkowy tekst informacyjny -->
-        <a-text 
-          value="Marker działa!"
-          position="0 1.2 0" 
-          align="center"
-          color="white"
-          scale="2 2 2">
-        </a-text>
+ 
       </a-marker>
 
       <!-- Camera -->
       <a-entity camera></a-entity>
     </a-scene>
 
-    <script>
-      // Event listeners dla markera
-      document.addEventListener('DOMContentLoaded', function() {
-        const marker = document.querySelector('#marker');
-        
-        if (marker) {
-          marker.addEventListener('markerFound', () => {
-            console.log('Marker znaleziony!');
-            // Dodaj efekt wizualny gdy marker jest znaleziony
-            const box = marker.querySelector('a-box');
-            if (box) {
-              box.setAttribute('color', '#00FF00'); // Zmiana koloru na zielony
-            }
-          });
-          
-          marker.addEventListener('markerLost', () => {
-            console.log('Marker utracony!');
-            // Przywróć oryginalny kolor
-            const box = marker.querySelector('a-box');
-            if (box) {
-              box.setAttribute('color', '#4CC3D9'); // Powrót do niebieskiego
-            }
-          });
-        } else {
-          console.error('Marker nie został znaleziony w DOM');
-        }
-      });
 
-      // Debugowanie - informacje o załadowaniu strony
-      window.addEventListener('load', function() {
-        console.log('Strona załadowana');
-        console.log('A-Frame version:', AFRAME.version);
-      });
-    </script>
   </body>
 </html>
