@@ -3,43 +3,56 @@
   <head>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <script>
-      AFRAME.registerComponent('custom-blend-mode', {
-        init: function () {
-          let mesh = this.el.getObject3D('mesh');
-          if (mesh) {
-            mesh.material.blending = THREE.CustomBlending;
-            mesh.material.blendEquation = THREE.ReverseSubtractEquation;
-            mesh.material.needsUpdate = true;
-          }
-        }
-      });
-    </script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
   </head>
   <body>
     <a-scene 
       embedded 
       arjs="sourceType: webcam; 
             debugUIEnabled: true; 
+            detectionMode: mono; 
+            maxDetectionRate: 30;
             patternRatio: 0.80;"
-      renderer="logarithmicDepthBuffer: true;"
+      renderer="logarithmicDepthBuffer: true; precision: medium;"
       vr-mode-ui="enabled: false">
 
       <!-- MARKER PATTERN -->
       <a-marker
+        id="marker"
         type="pattern" 
-        url=https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt
+        url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt"
         emitevents="true"
         cursor="fuse: false;"
-        raycaster="objects: .clickable">
+        raycaster="objects: .clickable"
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance="0.01"
+        smoothThreshold="5">
         
+        <!-- Podstawowy model do testowania -->
         <a-box 
           position="0 0.5 0" 
           rotation="0 45 0"
           color="#4CC3D9"
           scale="0.5 0.5 0.5"
-          class="clickable">
+          class="clickable"
+          animation="property: rotation; to: 0 405 0; loop: true; dur: 3000">
         </a-box>
+        
+        <!-- Alternatywnie możesz dodać płaszczyznę jako tło -->
+        <a-plane 
+          position="0 0 0" 
+          rotation="-90 0 0" 
+          width="1" 
+          height="1" 
+          color="#7BC8A4"
+          opacity="0.5">
+        </a-plane>
       </a-marker>
 
       <!-- Camera -->
@@ -47,12 +60,44 @@
     </a-scene>
 
     <script>
-  document.querySelector('#marker').addEventListener('markerFound', () => {
-    console.log('Marker znaleziony!');
-  });
-  document.querySelector('#marker').addEventListener('markerLost', () => {
-    console.log('Marker utracony!');
-  });
-</script>
+      // Sprawdź czy marker jest poprawnie załadowany
+      document.addEventListener('DOMContentLoaded', function() {
+        const marker = document.querySelector('#marker');
+        
+        if (marker) {
+          marker.addEventListener('markerFound', () => {
+            console.log('Marker znaleziony!');
+            // Dodaj efekt wizualny gdy marker jest znaleziony
+            const box = marker.querySelector('a-box');
+            if (box) {
+              box.setAttribute('color', '#00FF00'); // Zmiana koloru na zielony
+            }
+          });
+          
+          marker.addEventListener('markerLost', () => {
+            console.log('Marker utracony!');
+            // Przywróć oryginalny kolor
+            const box = marker.querySelector('a-box');
+            if (box) {
+              box.setAttribute('color', '#4CC3D9');
+            }
+          });
+        } else {
+          console.error('Marker nie został znaleziony w DOM');
+        }
+
+        // Debugowanie - sprawdź czy AR.js się załadował
+        if (typeof AFRAME !== 'undefined' && AFRAME.components['arjs']) {
+          console.log('AR.js został poprawnie załadowany');
+        } else {
+          console.error('AR.js nie został załadowany');
+        }
+      });
+
+      // Obsługa błędów ładowania zasobów
+      window.addEventListener('error', function(e) {
+        console.error('Błąd:', e.error);
+      });
+    </script>
   </body>
 </html>
