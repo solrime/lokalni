@@ -1,103 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <a-scene 
-      embedded 
-      arjs="sourceType: webcam; 
-            debugUIEnabled: true; 
-            detectionMode: mono; 
-            maxDetectionRate: 30;
-            patternRatio: 0.80;"
-      renderer="logarithmicDepthBuffer: true; precision: medium;"
-      vr-mode-ui="enabled: false">
+<head>
+    <title>Test Markera AR</title>
+</head>
+<body>
+    <h1>Test Markera Pattern</h1>
+    
+    <div>
+        <h3>Twój marker pattern:</h3>
+        <img src="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt" 
+             alt="Pattern Marker" 
+             style="border: 2px solid red; max-width: 300px;">
+        <p>URL: https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt</p>
+    </div>
 
-      <!-- MARKER PATTERN -->
-      <a-marker
-        id="marker"
-        type="pattern" 
-        url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt"
-        emitevents="true"
-        cursor="fuse: false;"
-        raycaster="objects: .clickable"
-        smooth="true"
-        smoothCount="10"
-        smoothTolerance="0.01"
-        smoothThreshold="5">
-        
-        <!-- Podstawowy model do testowania -->
-        <a-box 
-          position="0 0.5 0" 
-          rotation="0 45 0"
-          color="#4CC3D9"
-          scale="0.5 0.5 0.5"
-          class="clickable"
-          animation="property: rotation; to: 0 405 0; loop: true; dur: 3000">
-        </a-box>
-        
-        <!-- Alternatywnie możesz dodać płaszczyznę jako tło -->
-        <a-plane 
-          position="0 0 0" 
-          rotation="-90 0 0" 
-          width="1" 
-          height="1" 
-          color="#7BC8A4"
-          opacity="0.5">
-        </a-plane>
-      </a-marker>
-
-      <!-- Camera -->
-      <a-entity camera></a-entity>
-    </a-scene>
+    <div>
+        <h3>Instrukcje rozwiązywania problemów:</h3>
+        <ol>
+            <li>Upewnij się, że marker jest dobrze oświetlony</li>
+            <li>Drukuj marker na matowym papierze</li>
+            <li>Nie składaj i nie gnąć markera</li>
+            <li>Użyj kamery dobrej jakości</li>
+            <li>Sprawdź czy kamera ma focus</li>
+        </ol>
+    </div>
 
     <script>
-      // Sprawdź czy marker jest poprawnie załadowany
-      document.addEventListener('DOMContentLoaded', function() {
-        const marker = document.querySelector('#marker');
-        
-        if (marker) {
-          marker.addEventListener('markerFound', () => {
-            console.log('Marker znaleziony!');
-            // Dodaj efekt wizualny gdy marker jest znaleziony
-            const box = marker.querySelector('a-box');
-            if (box) {
-              box.setAttribute('color', '#00FF00'); // Zmiana koloru na zielony
-            }
-          });
-          
-          marker.addEventListener('markerLost', () => {
-            console.log('Marker utracony!');
-            // Przywróć oryginalny kolor
-            const box = marker.querySelector('a-box');
-            if (box) {
-              box.setAttribute('color', '#4CC3D9');
-            }
-          });
-        } else {
-          console.error('Marker nie został znaleziony w DOM');
-        }
-
-        // Debugowanie - sprawdź czy AR.js się załadował
-        if (typeof AFRAME !== 'undefined' && AFRAME.components['arjs']) {
-          console.log('AR.js został poprawnie załadowany');
-        } else {
-          console.error('AR.js nie został załadowany');
-        }
-      });
-
-      // Obsługa błędów ładowania zasobów
-      window.addEventListener('error', function(e) {
-        console.error('Błąd:', e.error);
-      });
+        // Test czy obraz markera ładuje się poprawnie
+        const markerImg = new Image();
+        markerImg.onload = function() {
+            console.log('✅ Marker image loaded successfully');
+        };
+        markerImg.onerror = function() {
+            console.error('❌ Failed to load marker image');
+        };
+        markerImg.src = 'https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt';
     </script>
-  </body>
+</body>
 </html>
