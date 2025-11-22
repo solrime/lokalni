@@ -37,9 +37,12 @@
     <a-scene embedded arjs="patternRatio: 0.80">
       <a-marker type="pattern" url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt">
         
-        <!-- Przezroczysty Prostopadłościan -->
-        <a-box position="0 0 0" rotation="0 0 0" color="#4CC3D9" scale="1 1 1" opacity="0.5"></a-box>
-
+   <a-gltf-model
+          src="oko.glb"
+          position="0 0 0"
+          rotation="0 0 0"
+          scale="1 1 1">
+        </a-gltf-model>
         <!-- Kula wewnątrz prostopadłościanu -->
         <a-sphere id="colorSphere" position="0 0 0" radius="0.25" color="#FFFFFF"></a-sphere>
 
