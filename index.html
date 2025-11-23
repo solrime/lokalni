@@ -40,6 +40,11 @@
 
   <body>
     <a-scene embedded arjs="patternRatio: 0.80">
+      <!-- Dodanie fonta Cy Grotesk Key -->
+      <a-assets>
+        <a-asset-item id="cyGroteskFont" src="https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"></a-asset-item>
+      </a-assets>
+
       <a-marker type="pattern" url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt">
 
         <!-- Główna rzeźba (oko) - patrzy na kamerę -->
@@ -143,10 +148,10 @@
           animation__2="property: position; to: 0.5 -0.5 -0.5; loop: true; dur: 2800; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
-        <!-- 13 napisów "do not fear us" pojawiających się i znikających losowo -->
+        <!-- 13 napisów "do not fear us" z fontem Cy Grotesk Key -->
         <a-entity
           id="text-message-1"
-          text="value: do not fear us; align: center; color: white; width: 1.3;"
+          text="value: do not fear us; align: center; color: white; width: 1.3; font: https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"
           position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
@@ -157,7 +162,7 @@
 
         <a-entity
           id="text-message-2"
-          text="value: do not fear us; align: center; color: white; width: 1.3;"
+          text="value: do not fear us; align: center; color: white; width: 1.3; font: https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"
           position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
@@ -168,7 +173,7 @@
 
         <a-entity
           id="text-message-3"
-          text="value: do not fear us; align: center; color: white; width: 1.3;"
+          text="value: do not fear us; align: center; color: white; width: 1.3; font: https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"
           position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
@@ -179,7 +184,7 @@
 
         <a-entity
           id="text-message-4"
-          text="value: do not fear us; align: center; color: white; width: 1.3;"
+          text="value: do not fear us; align: center; color: white; width: 1.3; font: https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"
           position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
@@ -190,7 +195,7 @@
 
         <a-entity
           id="text-message-5"
-          text="value: do not fear us; align: center; color: white; width: 1.3;"
+          text="value: do not fear us; align: center; color: white; width: 1.3; font: https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"
           position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
@@ -201,7 +206,7 @@
 
         <a-entity
           id="text-message-6"
-          text="value: do not fear us; align: center; color: white; width: 1.3;"
+          text="value: do not fear us; align: center; color: white; width: 1.3; font: https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"
           position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
@@ -212,7 +217,7 @@
 
         <a-entity
           id="text-message-7"
-          text="value: do not fear us; align: center; color: white; width: 1.3;"
+          text="value: do not fear us; align: center; color: white; width: 1.3; font: https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"
           position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
@@ -223,7 +228,7 @@
 
         <a-entity
           id="text-message-8"
-          text="value: do not fear us; align: center; color: white; width: 1.3;"
+          text="value: do not fear us; align: center; color: white; width: 1.3; font: https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"
           position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
@@ -234,7 +239,7 @@
 
         <a-entity
           id="text-message-9"
-          text="value: do not fear us; align: center; color: white; width: 1.3;"
+          text="value: do not fear us; align: center; color: white; width: 1.3; font: https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"
           position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
@@ -245,7 +250,7 @@
 
         <a-entity
           id="text-message-10"
-          text="value: do not fear us; align: center; color: white; width: 1.3;"
+          text="value: do not fear us; align: center; color: white; width: 1.3; font: https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"
           position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
@@ -256,7 +261,7 @@
 
         <a-entity
           id="text-message-11"
-          text="value: do not fear us; align: center; color: white; width: 1.3;"
+          text="value: do not fear us; align: center; color: white; width: 1.3; font: https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"
           position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
@@ -267,7 +272,7 @@
 
         <a-entity
           id="text-message-12"
-          text="value: do not fear us; align: center; color: white; width: 1.3;"
+          text="value: do not fear us; align: center; color: white; width: 1.3; font: https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"
           position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
@@ -278,7 +283,7 @@
 
         <a-entity
           id="text-message-13"
-          text="value: do not fear us; align: center; color: white; width: 1.3;"
+          text="value: do not fear us; align: center; color: white; width: 1.3; font: https://cdn.jsdelivr.net/npm/@cylab/grotesk@1.0.0/fonts/CyGroteskKey-Regular.woff"
           position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
