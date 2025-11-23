@@ -143,15 +143,59 @@
           animation__2="property: position; to: 0.5 -0.5 -0.5; loop: true; dur: 2800; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
-        <!-- Napis "do not fear us" pojawiający się losowo -->
+        <!-- 5 napisów "do not fear us" pojawiających się losowo -->
         <a-entity
-          id="text-message"
-          text="value: do not fear us; align: center; color: white; width: 3;"
-          position="0 1.5 0"
+          id="text-message-1"
+          text="value: do not fear us; align: center; color: white; width: 2;"
+          position="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__appear="property: material.opacity; to: 1; dur: 1000; startEvents: showText; autoplay: false"
-          animation__disappear="property: material.opacity; to: 0; dur: 1000; startEvents: hideText; autoplay: false"
+          animation__appear="property: material.opacity; to: 1; dur: 800; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 800; startEvents: hideText; autoplay: false"
+          visible="false"
+        ></a-entity>
+
+        <a-entity
+          id="text-message-2"
+          text="value: do not fear us; align: center; color: white; width: 2;"
+          position="0 0 0"
+          material="opacity: 0; transparent: true"
+          look-at="[camera]"
+          animation__appear="property: material.opacity; to: 1; dur: 800; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 800; startEvents: hideText; autoplay: false"
+          visible="false"
+        ></a-entity>
+
+        <a-entity
+          id="text-message-3"
+          text="value: do not fear us; align: center; color: white; width: 2;"
+          position="0 0 0"
+          material="opacity: 0; transparent: true"
+          look-at="[camera]"
+          animation__appear="property: material.opacity; to: 1; dur: 800; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 800; startEvents: hideText; autoplay: false"
+          visible="false"
+        ></a-entity>
+
+        <a-entity
+          id="text-message-4"
+          text="value: do not fear us; align: center; color: white; width: 2;"
+          position="0 0 0"
+          material="opacity: 0; transparent: true"
+          look-at="[camera]"
+          animation__appear="property: material.opacity; to: 1; dur: 800; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 800; startEvents: hideText; autoplay: false"
+          visible="false"
+        ></a-entity>
+
+        <a-entity
+          id="text-message-5"
+          text="value: do not fear us; align: center; color: white; width: 2;"
+          position="0 0 0"
+          material="opacity: 0; transparent: true"
+          look-at="[camera]"
+          animation__appear="property: material.opacity; to: 1; dur: 800; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 800; startEvents: hideText; autoplay: false"
           visible="false"
         ></a-entity>
 
@@ -161,40 +205,72 @@
     </a-scene>
 
     <script>
+      // Tablica z wszystkimi napisami
+      let textElements = [];
+      let activeTexts = 0;
+      const maxActiveTexts = 2; // Maksymalna liczba jednocześnie aktywnych napisów
+
       // Funkcja do losowego pojawiania się napisu
       function showRandomText() {
-        const textElement = document.getElementById('text-message');
+        if (activeTexts >= maxActiveTexts) {
+          // Jeśli już są 2 aktywne napisy, spróbuj ponownie za chwilę
+          setTimeout(showRandomText, 1000);
+          return;
+        }
+
+        // Znajdź nieaktywny napis
+        const availableTexts = textElements.filter(text => !text.isActive);
+        if (availableTexts.length === 0) return;
+
+        const randomText = availableTexts[Math.floor(Math.random() * availableTexts.length)];
         
-        // Losowa pozycja wokół znacznika
-        const randomX = (Math.random() - 0.5) * 2; // -1 do 1
-        const randomY = Math.random() * 1 + 1; // 1 do 2
-        const randomZ = (Math.random() - 0.5) * 2; // -1 do 1
+        // Losowa pozycja bliżej oczu (mniejszy zakres)
+        const randomX = (Math.random() - 0.5) * 1.5; // -0.75 do 0.75
+        const randomY = Math.random() * 0.8 + 0.3; // 0.3 do 1.1
+        const randomZ = (Math.random() - 0.5) * 1.5; // -0.75 do 0.75
         
-        textElement.setAttribute('position', `${randomX} ${randomY} ${randomZ}`);
-        textElement.setAttribute('visible', 'true');
+        randomText.setAttribute('position', `${randomX} ${randomY} ${randomZ}`);
+        randomText.setAttribute('visible', 'true');
+        randomText.isActive = true;
+        activeTexts++;
         
         // Wyzwól animację pojawiania się
-        textElement.emit('showText');
+        randomText.emit('showText');
+        
+        // Losowy czas widoczności (1.5-3 sekundy)
+        const visibleTime = Math.random() * 1500 + 1500;
         
         // Po chwili ukryj napis
         setTimeout(() => {
-          textElement.emit('hideText');
+          randomText.emit('hideText');
           
           // Po zakończeniu animacji znikania ukryj element
           setTimeout(() => {
-            textElement.setAttribute('visible', 'false');
-          }, 1000);
-        }, 3000); // Napis widoczny przez 3 sekundy
+            randomText.setAttribute('visible', 'false');
+            randomText.isActive = false;
+            activeTexts--;
+          }, 800);
+        }, visibleTime);
         
-        // Losowy czas do następnego pojawienia się (3-8 sekund)
-        const nextTime = Math.random() * 5000 + 3000;
+        // Losowy czas do następnego pojawienia się (1-3 sekundy)
+        const nextTime = Math.random() * 2000 + 1000;
         setTimeout(showRandomText, nextTime);
       }
 
-      // Zacznij cykl pojawiania się napisu po załadowaniu sceny
+      // Zacznij cykl pojawiania się napisów po załadowaniu sceny
       document.querySelector('a-scene').addEventListener('loaded', function() {
-        // Pierwsze pojawienie się po 2 sekundach
-        setTimeout(showRandomText, 2000);
+        // Zbierz wszystkie elementy tekstowe
+        for (let i = 1; i <= 5; i++) {
+          const textElement = document.getElementById(`text-message-${i}`);
+          textElement.isActive = false;
+          textElements.push(textElement);
+        }
+        
+        // Pierwsze pojawienie się po 1 sekundzie
+        setTimeout(showRandomText, 1000);
+        
+        // Dodatkowy timer dla większej częstotliwości
+        setInterval(showRandomText, 2000);
       });
     </script>
   </body>
