@@ -35,77 +35,14 @@
           }
         `
       });
-
-      // System do zarządzania losowym patrzeniem oczu
-      AFRAME.registerSystem('eye-manager', {
-        init: function() {
-          this.eyes = [];
-          this.lookingEyes = [];
-          this.timer = null;
-          
-          // Rozpocznij losowanie po załadowaniu sceny
-          this.sceneEl.addEventListener('loaded', () => {
-            this.startRandomizing();
-          });
-        },
-        
-        registerEye: function(eyeEl) {
-          this.eyes.push(eyeEl);
-        },
-        
-        startRandomizing: function() {
-          const self = this;
-          
-          function randomizeLookingEyes() {
-            // Reset wszystkie oczy - przestają patrzeć na kamerę
-            self.eyes.forEach(eye => {
-              eye.removeAttribute('look-at');
-            });
-            
-            // Losowo wybierz które oczy będą patrzeć na kamerę
-            self.lookingEyes = [];
-            const numberOfLookingEyes = Math.floor(Math.random() * (self.eyes.length - 3)) + 3; // Co najmniej 3 oczy patrzą
-            
-            while (self.lookingEyes.length < numberOfLookingEyes) {
-              const randomIndex = Math.floor(Math.random() * self.eyes.length);
-              const randomEye = self.eyes[randomIndex];
-              
-              if (!self.lookingEyes.includes(randomEye)) {
-                self.lookingEyes.push(randomEye);
-                randomEye.setAttribute('look-at', '[camera]');
-              }
-            }
-            
-            // Uruchom ponownie timer
-            self.timer = setTimeout(randomizeLookingEyes, 5000);
-          }
-          
-          // Pierwsze losowanie
-          randomizeLookingEyes();
-        },
-        
-        stopRandomizing: function() {
-          if (this.timer) {
-            clearTimeout(this.timer);
-          }
-        }
-      });
-
-      // Komponent dla pojedynczego oka
-      AFRAME.registerComponent('random-eye', {
-        init: function() {
-          this.system = this.el.sceneEl.systems['eye-manager'];
-          this.system.registerEye(this.el);
-        }
-      });
     </script>
   </head>
 
   <body>
-    <a-scene embedded arjs="patternRatio: 0.80" eye-manager>
+    <a-scene embedded arjs="patternRatio: 0.80">
       <a-marker type="pattern" url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt">
 
-        <!-- Główna rzeźba (oko) - zawsze patrzy na kamerę -->
+        <!-- Główna rzeźba (oko) - patrzy na kamerę -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 0 0"
@@ -116,105 +53,134 @@
         ></a-entity>
 
         <!-- Mniejsze oczy rozmieszczone równomiernie wokół głównego oka -->
-        <!-- Oczy na płaszczyźnie XZ (poziomej) -->
-        <a-entity
-          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="0.7 0 0"
-          scale="0.1 0.1 0.1"
-          rotation="0 -45 0"
-          material="opacity: 0; transparent: true"
- 
-          animation__3="property: position; to: 0.7 0.2 0; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
-        ></a-entity>
-
-        <a-entity
-          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="-0.7 0 0"
-          scale="0.1 0.1 0.1"
-          rotation="0 -45 0"
-          material="opacity: 0; transparent: true"
- 
-          animation__3="property: position; to: -0.7 0.2 0; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
-        ></a-entity>
-
+        <!-- Przód (pozytywne Z) -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 0 0.7"
           scale="0.1 0.1 0.1"
-          rotation="0 -45 0"
+          rotation="0 0 0"
           material="opacity: 0; transparent: true"
-      
-          animation__3="property: position; to: 0 0.2 0.7; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
+          look-at="[camera]"
         ></a-entity>
 
+        <!-- Tył (negatywne Z) -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 0 -0.7"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
- 
-          animation__3="property: position; to: 0 0.2 -0.7; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
+          look-at="[camera]"
         ></a-entity>
 
-        <!-- Oczy na płaszczyźnie XY (pionowej) -->
+        <!-- Prawo (pozytywne X) -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="0 0.7 0"
+          position="0.7 0 0"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
-    
-          animation__3="property: position; to: 0.2 0.7 0; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
+          look-at="[camera]"
         ></a-entity>
 
+        <!-- Lewo (negatywne X) -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="0 -0.7 0"
+          position="-0.7 0 0"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
- 
-          animation__3="property: position; to: 0.2 -0.7 0; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
+          look-at="[camera]"
         ></a-entity>
 
-        <!-- Oczy na przekątnych -->
+        <!-- Dodatkowe pozycje na ukos dla lepszego rozmieszczenia -->
+        <!-- Prawy przód -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="0.5 0.5 0"
+          position="0.5 0 0.5"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
-      
-          animation__3="property: position; to: 0.5 0.5 0.2; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
+          look-at="[camera]"
         ></a-entity>
 
+        <!-- Lewy przód -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="-0.5 0.5 0"
+          position="-0.5 0 0.5"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
-          animation__3="property: position; to: -0.5 0.5 0.2; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
+          look-at="[camera]"
         ></a-entity>
 
+        <!-- Prawy tył -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="0.5 -0.5 0"
+          position="0.5 0 -0.5"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
-          animation__3="property: position; to: 0.5 -0.5 0.2; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
+          look-at="[camera]"
         ></a-entity>
 
+        <!-- Lewy tył -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="-0.5 -0.5 0"
+          position="-0.5 0 -0.5"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
-     
-          animation__3="property: position; to: -0.5 -0.5 0.2; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
+          look-at="[camera]"
+        ></a-entity>
+
+        <!-- Animowane oczy (zachowane z poprzedniej wersji) -->
+        <!-- Pierwsza mniejsza rzeźba (lewa strona) - obraca się w jedną stronę -->
+        <a-entity
+          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
+          position="0.5 0 0"
+          scale="0.1 0.1 0.1"
+          rotation="0 0 -90"
+          material="opacity: 0; transparent: true"
+          animation="property: rotation; to: 360 360 360; loop: true; dur: 8000; easing: linear"
+          animation__2="property: rotation; from: 0 0 25; to: 360 360 385; loop: true; dur: 6000; easing: linear"
+          animation__3="property: position; to: 0.5 0 0.5; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
+        ></a-entity>
+
+        <!-- Druga mniejsza rzeźba (prawa strona) - obraca się w jedną stronę -->
+        <a-entity
+          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
+          position="-0.5 0 0"
+          scale="0.1 0.1 0.1"
+          rotation="0 0 -90"
+          material="opacity: 0; transparent: true"
+          animation="property: rotation; to: 360 405 335; loop: true; dur: 10000; easing: linear"
+          animation__2="property: rotation; from: 0 45 -25; to: 360 405 335; loop: true; dur: 7000; easing: linear"
+          animation__3="property: position; to: -0.5 0 -0.5; loop: true; dur: 4000; dir: alternate; easing: easeInOutSine"
+        ></a-entity>
+
+        <!-- Trzecia mniejsza rzeźba (góra) - obraca się w PRZECIWNĄ stronę -->
+        <a-entity
+          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
+          position="0 0 0.7"
+          scale="0.1 0.1 0.1"
+          rotation="0 45 -90"
+          material="opacity: 0; transparent: true"
+          animation="property: rotation; to: -360 -360 -360; loop: true; dur: 8000; easing: linear"
+          animation__2="property: rotation; from: 0 0 25; to: -360 -360 -385; loop: true; dur: 6000; easing: linear"
+          animation__3="property: position; to: 0 0.7 0.5; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
+        ></a-entity>
+
+        <!-- Czwarta mniejsza rzeźba (dół) - obraca się w PRZECIWNĄ stronę -->
+        <a-entity
+          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
+          position="0 0 -0.7"
+          scale="0.1 0.1 0.1"
+          rotation="0 45 -90"
+          material="opacity: 0; transparent: true"
+          animation="property: rotation; to: -360 -405 -335; loop: true; dur: 10000; easing: linear"
+          animation__2="property: rotation; from: 0 45 -25; to: -360 -405 -335; loop: true; dur: 7000; easing: linear"
+          animation__3="property: position; to: 0 -0.7 -0.5; loop: true; dur: 4000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
       </a-marker>
