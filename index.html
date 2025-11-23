@@ -32,13 +32,17 @@
         `
       });
       
-      // Komponent do utrzymania stałej rotacji
+      // Poprawiony komponent do utrzymania stałej rotacji
       AFRAME.registerComponent('billboard', {
+        init: function () {
+          this.initialRotation = this.el.getAttribute('rotation');
+          this.camera = document.querySelector('[camera]');
+        },
+        
         tick: function () {
-          var camera = document.querySelector('[camera]');
-          if (!camera) return;
+          if (!this.camera) return;
           
-          var cameraPosition = camera.getAttribute('position');
+          var cameraPosition = this.camera.getAttribute('position');
           var objectPosition = this.el.getAttribute('position');
           
           // Oblicz kierunek od obiektu do kamery
@@ -48,11 +52,19 @@
             z: cameraPosition.z - objectPosition.z
           };
           
-          // Oblicz kąt obrotu wokół osi Y
-          var angle = Math.atan2(direction.x, direction.z) * (180 / Math.PI);
+          // Oblicz kąt obrotu wokół osi Y (w radianach)
+          var angle = Math.atan2(direction.x, direction.z);
+          
+          // Konwertuj na stopnie i dodaj korektę, aby przód był zawsze do kamery
+          var angleDegrees = angle * (180 / Math.PI);
           
           // Ustaw rotację obiektu (tylko wokół osi Y)
-          this.el.setAttribute('rotation', { x: 0, y: angle, z: 0 });
+          // Dodajemy 180 stopni korekty, aby przód zawsze był do kamery
+          this.el.setAttribute('rotation', { 
+            x: this.initialRotation.x, 
+            y: angleDegrees + 180, 
+            z: this.initialRotation.z 
+          });
         }
       });
     </script>
@@ -64,7 +76,7 @@
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 0 0" 
-          scale="0.2 0.2 0.2"
+          scale="0.5 0.5 0.5"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
           billboard
