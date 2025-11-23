@@ -42,6 +42,7 @@
     <a-scene embedded arjs="patternRatio: 0.80">
       <a-marker type="pattern" url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt">
 
+        <!-- Główna rzeźba (oko) - patrzy na kamerę -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 0 0"
@@ -49,6 +50,24 @@
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
+        ></a-entity>
+
+        <!-- Pierwsza mniejsza rzeźba (lewa strona) - NIE patrzy na kamerę -->
+        <a-entity
+          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
+          position="-0.3 0 0"
+          scale="0.1 0.1 0.1"
+          rotation="0 0 0"
+          material="opacity: 0; transparent: true"
+        ></a-entity>
+
+        <!-- Druga mniejsza rzeźba (prawa strona) - NIE patrzy na kamerę -->
+        <a-entity
+          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
+          position="0.3 0 0"
+          scale="0.1 0.1 0.1"
+          rotation="0 0 0"
+          material="opacity: 0; transparent: true"
         ></a-entity>
 
       </a-marker>
