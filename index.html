@@ -36,186 +36,195 @@
         `
       });
 
-      // System do losowego przypisywania look-at
-      AFRAME.registerSystem('eye-randomizer', {
+      // System do zarządzania losowym patrzeniem oczu
+      AFRAME.registerSystem('eye-manager', {
         init: function() {
           this.eyes = [];
+          this.lookingEyes = [];
           this.timer = null;
-          this.sceneEl = this.el;
           
-          // Poczekaj aż scena się załaduje
+          // Rozpocznij losowanie po załadowaniu sceny
           this.sceneEl.addEventListener('loaded', () => {
             this.startRandomizing();
           });
         },
         
+        registerEye: function(eyeEl) {
+          this.eyes.push(eyeEl);
+        },
+        
         startRandomizing: function() {
-          // Znajdź wszystkie oczy
-          this.eyes = Array.from(this.sceneEl.querySelectorAll('[gltf-model]'));
+          const self = this;
           
-          // Rozpocznij pierwsze losowanie
-          this.randomizeLookAt();
-          
-          // Ustaw interwał co 5 sekund
-          this.timer = setInterval(() => {
-            this.randomizeLookAt();
-          }, 5000);
-        },
-        
-        randomizeLookAt: function() {
-          // Usuń look-at ze wszystkich oczu
-          this.eyes.forEach(eye => {
-            eye.removeAttribute('look-at');
-          });
-          
-          // Losowa liczba oczu, które będą patrzeć na kamerę (1-4)
-          const numberOfEyesToLook = Math.floor(Math.random() * 4) + 1;
-          
-          // Losowo wybierz oczy, które będą patrzeć na kamerę
-          const shuffledEyes = [...this.eyes].sort(() => 0.5 - Math.random());
-          const selectedEyes = shuffledEyes.slice(0, numberOfEyesToLook);
-          
-          // Dodaj look-at do wybranych oczu
-          selectedEyes.forEach(eye => {
-            eye.setAttribute('look-at', '[camera]');
-          });
-          
-          console.log(`Losowanie: ${numberOfEyesToLook} oczy patrzą na kamerę`);
-        },
-        
-        remove: function() {
-          if (this.timer) {
-            clearInterval(this.timer);
+          function randomizeLookingEyes() {
+            // Reset wszystkie oczy - przestają patrzeć na kamerę
+            self.eyes.forEach(eye => {
+              eye.removeAttribute('look-at');
+            });
+            
+            // Losowo wybierz które oczy będą patrzeć na kamerę
+            self.lookingEyes = [];
+            const numberOfLookingEyes = Math.floor(Math.random() * (self.eyes.length - 3)) + 3; // Co najmniej 3 oczy patrzą
+            
+            while (self.lookingEyes.length < numberOfLookingEyes) {
+              const randomIndex = Math.floor(Math.random() * self.eyes.length);
+              const randomEye = self.eyes[randomIndex];
+              
+              if (!self.lookingEyes.includes(randomEye)) {
+                self.lookingEyes.push(randomEye);
+                randomEye.setAttribute('look-at', '[camera]');
+              }
+            }
+            
+            // Uruchom ponownie timer
+            self.timer = setTimeout(randomizeLookingEyes, 5000);
           }
+          
+          // Pierwsze losowanie
+          randomizeLookingEyes();
+        },
+        
+        stopRandomizing: function() {
+          if (this.timer) {
+            clearTimeout(this.timer);
+          }
+        }
+      });
+
+      // Komponent dla pojedynczego oka
+      AFRAME.registerComponent('random-eye', {
+        init: function() {
+          this.system = this.el.sceneEl.systems['eye-manager'];
+          this.system.registerEye(this.el);
         }
       });
     </script>
   </head>
 
   <body>
-    <a-scene embedded arjs="patternRatio: 0.80" eye-randomizer>
+    <a-scene embedded arjs="patternRatio: 0.80" eye-manager>
       <a-marker type="pattern" url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt">
 
-        <!-- Główna rzeźba (oko) -->
+        <!-- Główna rzeźba (oko) - zawsze patrzy na kamerę -->
         <a-entity
-          id="main-eye"
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 0 0"
           scale="0.2 0.2 0.2"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
+          look-at="[camera]"
         ></a-entity>
 
         <!-- Mniejsze oczy rozmieszczone równomiernie wokół głównego oka -->
         <!-- Oczy na płaszczyźnie XZ (poziomej) -->
         <a-entity
-          class="small-eye"
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0.7 0 0"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
+          random-eye
           animation="property: rotation; to: 360 360 360; loop: true; dur: 8000; easing: linear"
           animation__3="property: position; to: 0.7 0.2 0; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
         <a-entity
-          class="small-eye"
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="-0.7 0 0"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
+          random-eye
           animation="property: rotation; to: -360 -360 -360; loop: true; dur: 8000; easing: linear"
           animation__3="property: position; to: -0.7 0.2 0; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
         <a-entity
-          class="small-eye"
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 0 0.7"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
+          random-eye
           animation="property: rotation; to: 360 360 360; loop: true; dur: 8000; easing: linear"
           animation__3="property: position; to: 0 0.2 0.7; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
         <a-entity
-          class="small-eye"
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 0 -0.7"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
+          random-eye
           animation="property: rotation; to: -360 -360 -360; loop: true; dur: 8000; easing: linear"
           animation__3="property: position; to: 0 0.2 -0.7; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
         <!-- Oczy na płaszczyźnie XY (pionowej) -->
         <a-entity
-          class="small-eye"
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 0.7 0"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
+          random-eye
           animation="property: rotation; to: 360 360 360; loop: true; dur: 8000; easing: linear"
           animation__3="property: position; to: 0.2 0.7 0; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
         <a-entity
-          class="small-eye"
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 -0.7 0"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
+          random-eye
           animation="property: rotation; to: -360 -360 -360; loop: true; dur: 8000; easing: linear"
           animation__3="property: position; to: 0.2 -0.7 0; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
         <!-- Oczy na przekątnych -->
         <a-entity
-          class="small-eye"
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0.5 0.5 0"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
+          random-eye
           animation="property: rotation; to: 360 360 360; loop: true; dur: 8000; easing: linear"
           animation__3="property: position; to: 0.5 0.5 0.2; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
         <a-entity
-          class="small-eye"
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="-0.5 0.5 0"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
+          random-eye
           animation="property: rotation; to: -360 -360 -360; loop: true; dur: 8000; easing: linear"
           animation__3="property: position; to: -0.5 0.5 0.2; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
         <a-entity
-          class="small-eye"
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0.5 -0.5 0"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
+          random-eye
           animation="property: rotation; to: 360 360 360; loop: true; dur: 8000; easing: linear"
           animation__3="property: position; to: 0.5 -0.5 0.2; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
         <a-entity
-          class="small-eye"
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="-0.5 -0.5 0"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
+          random-eye
           animation="property: rotation; to: -360 -360 -360; loop: true; dur: 8000; easing: linear"
           animation__3="property: position; to: -0.5 -0.5 0.2; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
