@@ -41,14 +41,7 @@
   <body>
     <a-scene embedded arjs="patternRatio: 0.80">
       <a-marker type="pattern" url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt">
-<a-plane
-  src="https://github.com/solrime/lokalni/blob/main/SCAN%20ME.png?raw=true"
-  position="0 1.5 0"
-  width="1"
-  height="0.5"
-  look-at="[camera]"
-  material="transparent: true"
-></a-plane>
+
         <!-- Główna rzeźba (oko) - patrzy na kamerę -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
@@ -150,9 +143,59 @@
           animation__2="property: position; to: 0.5 -0.5 -0.5; loop: true; dur: 2800; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
+        <!-- Napis "do not fear us" pojawiający się losowo -->
+        <a-entity
+          id="text-message"
+          text="value: do not fear us; align: center; color: white; width: 3;"
+          position="0 1.5 0"
+          material="opacity: 0; transparent: true"
+          look-at="[camera]"
+          animation__appear="property: material.opacity; to: 1; dur: 1000; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 1000; startEvents: hideText; autoplay: false"
+          visible="false"
+        ></a-entity>
+
       </a-marker>
 
       <a-entity camera></a-entity>
     </a-scene>
+
+    <script>
+      // Funkcja do losowego pojawiania się napisu
+      function showRandomText() {
+        const textElement = document.getElementById('text-message');
+        
+        // Losowa pozycja wokół znacznika
+        const randomX = (Math.random() - 0.5) * 2; // -1 do 1
+        const randomY = Math.random() * 1 + 1; // 1 do 2
+        const randomZ = (Math.random() - 0.5) * 2; // -1 do 1
+        
+        textElement.setAttribute('position', `${randomX} ${randomY} ${randomZ}`);
+        textElement.setAttribute('visible', 'true');
+        
+        // Wyzwól animację pojawiania się
+        textElement.emit('showText');
+        
+        // Po chwili ukryj napis
+        setTimeout(() => {
+          textElement.emit('hideText');
+          
+          // Po zakończeniu animacji znikania ukryj element
+          setTimeout(() => {
+            textElement.setAttribute('visible', 'false');
+          }, 1000);
+        }, 3000); // Napis widoczny przez 3 sekundy
+        
+        // Losowy czas do następnego pojawienia się (3-8 sekund)
+        const nextTime = Math.random() * 5000 + 3000;
+        setTimeout(showRandomText, nextTime);
+      }
+
+      // Zacznij cykl pojawiania się napisu po załadowaniu sceny
+      document.querySelector('a-scene').addEventListener('loaded', function() {
+        // Pierwsze pojawienie się po 2 sekundach
+        setTimeout(showRandomText, 2000);
+      });
+    </script>
   </body>
 </html>
