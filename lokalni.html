@@ -31,20 +31,44 @@
           }
         `
       });
+      
+      // Komponent do utrzymania stałej rotacji
+      AFRAME.registerComponent('billboard', {
+        tick: function () {
+          var camera = document.querySelector('[camera]');
+          if (!camera) return;
+          
+          var cameraPosition = camera.getAttribute('position');
+          var objectPosition = this.el.getAttribute('position');
+          
+          // Oblicz kierunek od obiektu do kamery
+          var direction = {
+            x: cameraPosition.x - objectPosition.x,
+            y: 0, // Ignorujemy różnicę wysokości dla rotacji Y
+            z: cameraPosition.z - objectPosition.z
+          };
+          
+          // Oblicz kąt obrotu wokół osi Y
+          var angle = Math.atan2(direction.x, direction.z) * (180 / Math.PI);
+          
+          // Ustaw rotację obiektu (tylko wokół osi Y)
+          this.el.setAttribute('rotation', { x: 0, y: angle, z: 0 });
+        }
+      });
     </script>
   </head>
   <body>
     <a-scene embedded arjs="patternRatio: 0.80">
       <a-marker type="pattern" url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt">
         
-   <a-entity
+        <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 0 0" 
           scale="0.5 0.5 0.5"
-                  rotation="0 0 0"
+          rotation="0 0 0"
           material="opacity: 0; transparent: true"
+          billboard
         ></a-entity>
-
 
       </a-marker>
       <a-entity camera></a-entity>
