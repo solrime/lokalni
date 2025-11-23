@@ -55,7 +55,7 @@
         <!-- Mniejsze oczy rozmieszczone równomiernie wokół głównego oka -->
         <!-- Oczy z parzystymi indeksami patrzą w kamerę, nieparzyste się obracają -->
         
-        <!-- 1. Oko (0°) - patrzy w kamerę -->
+        <!-- 1. Oko (0°) - patrzy w kamerę + ruch w osi Z -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0.7 0 0"
@@ -63,9 +63,10 @@
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
+          animation="property: position; to: 0.7 0 0.3; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
-        <!-- 2. Oko (45°) - obraca się -->
+        <!-- 2. Oko (45°) - obraca się + ruch w osi Z -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0.5 0.5 0"
@@ -73,9 +74,10 @@
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
           animation="property: rotation; to: 0 360 0; loop: true; dur: 5000; easing: linear"
+          animation__2="property: position; to: 0.5 0.5 -0.4; loop: true; dur: 3500; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
-        <!-- 3. Oko (90°) - patrzy w kamerę -->
+        <!-- 3. Oko (90°) - patrzy w kamerę + ruch w osi Z -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 0.7 0"
@@ -83,9 +85,10 @@
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
+          animation="property: position; to: 0 0.7 0.5; loop: true; dur: 4000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
-        <!-- 4. Oko (135°) - obraca się -->
+        <!-- 4. Oko (135°) - obraca się + ruch w osi Z -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="-0.5 0.5 0"
@@ -93,9 +96,10 @@
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
           animation="property: rotation; to: 360 0 360; loop: true; dur: 6000; easing: linear"
+          animation__2="property: position; to: -0.5 0.5 -0.2; loop: true; dur: 2500; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
-        <!-- 5. Oko (180°) - patrzy w kamerę -->
+        <!-- 5. Oko (180°) - patrzy w kamerę + ruch w osi Z -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="-0.7 0 0"
@@ -103,9 +107,10 @@
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
+          animation="property: position; to: -0.7 0 0.4; loop: true; dur: 3200; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
-        <!-- 6. Oko (225°) - obraca się -->
+        <!-- 6. Oko (225°) - obraca się + ruch w osi Z -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="-0.5 -0.5 0"
@@ -113,9 +118,10 @@
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
           animation="property: rotation; to: 0 360 360; loop: true; dur: 7000; easing: linear"
+          animation__2="property: position; to: -0.5 -0.5 -0.3; loop: true; dur: 3800; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
-        <!-- 7. Oko (270°) - patrzy w kamerę -->
+        <!-- 7. Oko (270°) - patrzy w kamerę + ruch w osi Z -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 -0.7 0"
@@ -123,9 +129,10 @@
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
+          animation="property: position; to: 0 -0.7 0.6; loop: true; dur: 4500; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
-        <!-- 8. Oko (315°) - obraca się -->
+        <!-- 8. Oko (315°) - obraca się + ruch w osi Z -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0.5 -0.5 0"
@@ -133,6 +140,7 @@
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
           animation="property: rotation; to: 360 360 0; loop: true; dur: 8000; easing: linear"
+          animation__2="property: position; to: 0.5 -0.5 -0.5; loop: true; dur: 2800; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
       </a-marker>
