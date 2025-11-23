@@ -4,33 +4,73 @@
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <script>
-      AFRAME.registerComponent('custom-blend-mode', {
-        init: function () {
-          let mesh = this.el.getObject3D('mesh');
-          if (mesh) {
-            mesh.material.blending = THREE.CustomBlending;
-            mesh.material.blendEquation = THREE.ReverseSubtractEquation;
-            mesh.material.needsUpdate = true;
+      AFRAME.registerShader('portal', {
+        schema: {
+          color: { type: 'color', default: '#FFF' },
+          timeMsec: { type: 'time', is: 'uniform' }
+        },
+        vertexShader: `
+          varying vec2 vUv;
+          void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
           }
+        `,
+        fragmentShader: `
+          uniform float timeMsec;
+          varying vec2 vUv;
+          void main() {
+            float time = timeMsec / 1000.0;
+            vec2 uv = vUv * 2.0 - 1.0;
+            float radius = length(uv);
+            float angle = atan(uv.y, uv.x);
+            float distort = sin(angle * 5.0 + time * 2.0) * 0.1;
+            uv += distort;
+            vec3 color = vec3(sin(uv.x * 10.0 + time), cos(uv.y * 10.0 + time), sin(uv.x * uv.y * 10.0 + time));
+            gl_FragColor = vec4(color, 1.0);
+          }
+        `
+      });
+      
+      // Komponent do utrzymania stałej rotacji
+      AFRAME.registerComponent('billboard', {
+        tick: function () {
+          var camera = document.querySelector('[camera]');
+          if (!camera) return;
+          
+          var cameraPosition = camera.getAttribute('position');
+          var objectPosition = this.el.getAttribute('position');
+          
+          // Oblicz kierunek od obiektu do kamery
+          var direction = {
+            x: cameraPosition.x - objectPosition.x,
+            y: 0, // Ignorujemy różnicę wysokości dla rotacji Y
+            z: cameraPosition.z - objectPosition.z
+          };
+          
+          // Oblicz kąt obrotu wokół osi Y
+          var angle = Math.atan2(direction.x, direction.z) * (180 / Math.PI);
+          
+          // Ustaw rotację obiektu (tylko wokół osi Y)
+          this.el.setAttribute('rotation', { x: 0, y: angle, z: 0 });
         }
       });
     </script>
   </head>
   <body>
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false; patternRatio: 0.80;">
-
-      <!-- MARKER PATTERN -->
-      <a-marker type="pattern" url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(9).patt">
-   <a-entity
+    <a-scene embedded arjs="patternRatio: 0.80">
+      <a-marker type="pattern" url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt">
+        
+        <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 0 0" 
           scale="0.5 0.5 0.5"
-         rotation="0 0 0"
+          rotation="0 0 0"
           material="opacity: 0; transparent: true"
+          billboard
         ></a-entity>
 
       </a-marker>
-
       <a-entity camera></a-entity>
     </a-scene>
   </body>
