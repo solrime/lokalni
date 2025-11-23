@@ -31,42 +31,6 @@
           }
         `
       });
-      
-      // Poprawiony komponent do utrzymania stałej rotacji
-      AFRAME.registerComponent('billboard', {
-        init: function () {
-          this.initialRotation = this.el.getAttribute('rotation');
-          this.camera = document.querySelector('[camera]');
-        },
-        
-        tick: function () {
-          if (!this.camera) return;
-          
-          var cameraPosition = this.camera.getAttribute('position');
-          var objectPosition = this.el.getAttribute('position');
-          
-          // Oblicz kierunek od obiektu do kamery
-          var direction = {
-            x: cameraPosition.x - objectPosition.x,
-            y: 0, // Ignorujemy różnicę wysokości dla rotacji Y
-            z: cameraPosition.z - objectPosition.z
-          };
-          
-          // Oblicz kąt obrotu wokół osi Y (w radianach)
-          var angle = Math.atan2(direction.x, direction.z);
-          
-          // Konwertuj na stopnie i dodaj korektę, aby przód był zawsze do kamery
-          var angleDegrees = angle * (180 / Math.PI);
-          
-          // Ustaw rotację obiektu (tylko wokół osi Y)
-          // Dodajemy 180 stopni korekty, aby przód zawsze był do kamery
-          this.el.setAttribute('rotation', { 
-            x: this.initialRotation.x, 
-            y: angleDegrees + 180, 
-            z: this.initialRotation.z 
-          });
-        }
-      });
     </script>
   </head>
   <body>
@@ -74,16 +38,51 @@
       <a-marker type="pattern" url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt">
         
         <a-entity
+          id="sculpture"
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0 0 0" 
           scale="0.5 0.5 0.5"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
-          billboard
+          look-at="[camera]"
         ></a-entity>
 
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
+    
+    <script>
+      // Dodatkowy skrypt zapewniający płynne śledzenie kamery
+      document.addEventListener('DOMContentLoaded', function() {
+        const sculpture = document.getElementById('sculpture');
+        const camera = document.querySelector('[camera]');
+        
+        // Funkcja aktualizująca rotację
+        function updateRotation() {
+          if (camera && sculpture) {
+            const cameraPosition = camera.getAttribute('position');
+            const sculpturePosition = sculpture.getAttribute('position');
+            
+            // Oblicz kierunek od rzeźby do kamery
+            const dx = cameraPosition.x - sculpturePosition.x;
+            const dz = cameraPosition.z - sculpturePosition.z;
+            
+            // Oblicz kąt obrotu wokół osi Y (w radianach)
+            const angle = Math.atan2(dx, dz);
+            
+            // Konwertuj na stopnie i ustaw rotację
+            sculpture.setAttribute('rotation', {
+              x: 0,
+              y: angle * (180 / Math.PI),
+              z: 0
+            });
+          }
+          requestAnimationFrame(updateRotation);
+        }
+        
+        // Rozpocznij aktualizację
+        updateRotation();
+      });
+    </script>
   </body>
 </html>
