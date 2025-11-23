@@ -143,135 +143,148 @@
           animation__2="property: position; to: 0.5 -0.5 -0.5; loop: true; dur: 2800; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
-        <!-- 13 napisów "do not fear us" zawsze widocznych w losowych miejscach -->
+        <!-- 13 napisów "do not fear us" pojawiających się i znikających losowo -->
         <a-entity
           id="text-message-1"
           text="value: do not fear us; align: center; color: white; width: 1.3;"
           position="0 0 0"
-          material="opacity: 1; transparent: true"
+          material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__move="property: position; dur: 2000; easing: easeInOutSine; startEvents: moveText"
-          visible="true"
+          animation__appear="property: material.opacity; to: 1; dur: 500; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 500; startEvents: hideText; autoplay: false"
+          visible="false"
         ></a-entity>
 
         <a-entity
           id="text-message-2"
           text="value: do not fear us; align: center; color: white; width: 1.3;"
           position="0 0 0"
-          material="opacity: 1; transparent: true"
+          material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__move="property: position; dur: 2000; easing: easeInOutSine; startEvents: moveText"
-          visible="true"
+          animation__appear="property: material.opacity; to: 1; dur: 500; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 500; startEvents: hideText; autoplay: false"
+          visible="false"
         ></a-entity>
 
         <a-entity
           id="text-message-3"
           text="value: do not fear us; align: center; color: white; width: 1.3;"
           position="0 0 0"
-          material="opacity: 1; transparent: true"
+          material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__move="property: position; dur: 2000; easing: easeInOutSine; startEvents: moveText"
-          visible="true"
+          animation__appear="property: material.opacity; to: 1; dur: 500; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 500; startEvents: hideText; autoplay: false"
+          visible="false"
         ></a-entity>
 
         <a-entity
           id="text-message-4"
           text="value: do not fear us; align: center; color: white; width: 1.3;"
           position="0 0 0"
-          material="opacity: 1; transparent: true"
+          material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__move="property: position; dur: 2000; easing: easeInOutSine; startEvents: moveText"
-          visible="true"
+          animation__appear="property: material.opacity; to: 1; dur: 500; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 500; startEvents: hideText; autoplay: false"
+          visible="false"
         ></a-entity>
 
         <a-entity
           id="text-message-5"
           text="value: do not fear us; align: center; color: white; width: 1.3;"
           position="0 0 0"
-          material="opacity: 1; transparent: true"
+          material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__move="property: position; dur: 2000; easing: easeInOutSine; startEvents: moveText"
-          visible="true"
+          animation__appear="property: material.opacity; to: 1; dur: 500; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 500; startEvents: hideText; autoplay: false"
+          visible="false"
         ></a-entity>
 
         <a-entity
           id="text-message-6"
           text="value: do not fear us; align: center; color: white; width: 1.3;"
           position="0 0 0"
-          material="opacity: 1; transparent: true"
+          material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__move="property: position; dur: 2000; easing: easeInOutSine; startEvents: moveText"
-          visible="true"
+          animation__appear="property: material.opacity; to: 1; dur: 500; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 500; startEvents: hideText; autoplay: false"
+          visible="false"
         ></a-entity>
 
         <a-entity
           id="text-message-7"
           text="value: do not fear us; align: center; color: white; width: 1.3;"
           position="0 0 0"
-          material="opacity: 1; transparent: true"
+          material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__move="property: position; dur: 2000; easing: easeInOutSine; startEvents: moveText"
-          visible="true"
+          animation__appear="property: material.opacity; to: 1; dur: 500; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 500; startEvents: hideText; autoplay: false"
+          visible="false"
         ></a-entity>
 
         <a-entity
           id="text-message-8"
           text="value: do not fear us; align: center; color: white; width: 1.3;"
           position="0 0 0"
-          material="opacity: 1; transparent: true"
+          material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__move="property: position; dur: 2000; easing: easeInOutSine; startEvents: moveText"
-          visible="true"
+          animation__appear="property: material.opacity; to: 1; dur: 500; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 500; startEvents: hideText; autoplay: false"
+          visible="false"
         ></a-entity>
 
         <a-entity
           id="text-message-9"
           text="value: do not fear us; align: center; color: white; width: 1.3;"
           position="0 0 0"
-          material="opacity: 1; transparent: true"
+          material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__move="property: position; dur: 2000; easing: easeInOutSine; startEvents: moveText"
-          visible="true"
+          animation__appear="property: material.opacity; to: 1; dur: 500; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 500; startEvents: hideText; autoplay: false"
+          visible="false"
         ></a-entity>
 
         <a-entity
           id="text-message-10"
           text="value: do not fear us; align: center; color: white; width: 1.3;"
           position="0 0 0"
-          material="opacity: 1; transparent: true"
+          material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__move="property: position; dur: 2000; easing: easeInOutSine; startEvents: moveText"
-          visible="true"
+          animation__appear="property: material.opacity; to: 1; dur: 500; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 500; startEvents: hideText; autoplay: false"
+          visible="false"
         ></a-entity>
 
         <a-entity
           id="text-message-11"
           text="value: do not fear us; align: center; color: white; width: 1.3;"
           position="0 0 0"
-          material="opacity: 1; transparent: true"
+          material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__move="property: position; dur: 2000; easing: easeInOutSine; startEvents: moveText"
-          visible="true"
+          animation__appear="property: material.opacity; to: 1; dur: 500; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 500; startEvents: hideText; autoplay: false"
+          visible="false"
         ></a-entity>
 
         <a-entity
           id="text-message-12"
           text="value: do not fear us; align: center; color: white; width: 1.3;"
           position="0 0 0"
-          material="opacity: 1; transparent: true"
+          material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__move="property: position; dur: 2000; easing: easeInOutSine; startEvents: moveText"
-          visible="true"
+          animation__appear="property: material.opacity; to: 1; dur: 500; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 500; startEvents: hideText; autoplay: false"
+          visible="false"
         ></a-entity>
 
         <a-entity
           id="text-message-13"
           text="value: do not fear us; align: center; color: white; width: 1.3;"
           position="0 0 0"
-          material="opacity: 1; transparent: true"
+          material="opacity: 0; transparent: true"
           look-at="[camera]"
-          animation__move="property: position; dur: 2000; easing: easeInOutSine; startEvents: moveText"
-          visible="true"
+          animation__appear="property: material.opacity; to: 1; dur: 500; startEvents: showText; autoplay: false"
+          animation__disappear="property: material.opacity; to: 0; dur: 500; startEvents: hideText; autoplay: false"
+          visible="false"
         ></a-entity>
 
       </a-marker>
@@ -291,37 +304,48 @@
         return `${randomX} ${randomY} ${randomZ}`;
       }
 
-      // Funkcja do przesuwania wszystkich napisów w losowe miejsca
-      function moveAllTexts() {
+      // Funkcja do losowego pojawiania się i znikania napisów
+      function manageTexts() {
         textElements.forEach(textElement => {
-          const newPosition = getRandomPosition();
-          textElement.setAttribute('animation__move', {
-            property: 'position',
-            to: newPosition,
-            dur: 2000,
-            easing: 'easeInOutSine'
-          });
-          textElement.emit('moveText');
+          // Losowo decyduj czy pokazać czy ukryć napis
+          if (Math.random() > 0.5) {
+            // Pokaż napis
+            if (!textElement.isVisible) {
+              const newPosition = getRandomPosition();
+              textElement.setAttribute('position', newPosition);
+              textElement.setAttribute('visible', 'true');
+              textElement.emit('showText');
+              textElement.isVisible = true;
+              
+              // Ukryj po losowym czasie (1-3 sekundy)
+              setTimeout(() => {
+                if (textElement.isVisible) {
+                  textElement.emit('hideText');
+                  setTimeout(() => {
+                    textElement.setAttribute('visible', 'false');
+                    textElement.isVisible = false;
+                  }, 500);
+                }
+              }, Math.random() * 2000 + 1000);
+            }
+          }
         });
 
-        // Losowy czas do następnego przesunięcia (1.5-3 sekundy)
-        const nextTime = Math.random() * 1500 + 1500;
-        setTimeout(moveAllTexts, nextTime);
+        // Kontynuuj co 500ms
+        setTimeout(manageTexts, 500);
       }
 
-      // Zacznij cykl przesuwania napisów po załadowaniu sceny
+      // Zacznij cykl po załadowaniu sceny
       document.querySelector('a-scene').addEventListener('loaded', function() {
         // Zbierz wszystkie elementy tekstowe
         for (let i = 1; i <= 13; i++) {
           const textElement = document.getElementById(`text-message-${i}`);
+          textElement.isVisible = false;
           textElements.push(textElement);
-          
-          // Ustaw początkową losową pozycję
-          textElement.setAttribute('position', getRandomPosition());
         }
         
-        // Zacznij przesuwanie po 1 sekundzie
-        setTimeout(moveAllTexts, 1000);
+        // Zacznij zarządzanie napisami po 1 sekundzie
+        setTimeout(manageTexts, 1000);
       });
     </script>
   </body>
