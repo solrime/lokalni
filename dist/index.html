@@ -53,27 +53,7 @@
         ></a-entity>
 
         <!-- Mniejsze oczy rozmieszczone równomiernie wokół głównego oka -->
-        <!-- Przód (pozytywne Z) -->
-        <a-entity
-          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="0 0 0.7"
-          scale="0.1 0.1 0.1"
-          rotation="0 0 0"
-          material="opacity: 0; transparent: true"
-          look-at="[camera]"
-        ></a-entity>
-
-        <!-- Tył (negatywne Z) -->
-        <a-entity
-          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="0 0 -0.7"
-          scale="0.1 0.1 0.1"
-          rotation="0 0 0"
-          material="opacity: 0; transparent: true"
-          look-at="[camera]"
-        ></a-entity>
-
-        <!-- Prawo (pozytywne X) -->
+        <!-- Pozycje są obliczane na okręgu o promieniu 0.7 -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="0.7 0 0"
@@ -83,7 +63,33 @@
           look-at="[camera]"
         ></a-entity>
 
-        <!-- Lewo (negatywne X) -->
+        <a-entity
+          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
+          position="0.5 0.5 0"
+          scale="0.1 0.1 0.1"
+          rotation="0 0 0"
+          material="opacity: 0; transparent: true"
+          look-at="[camera]"
+        ></a-entity>
+
+        <a-entity
+          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
+          position="0 0.7 0"
+          scale="0.1 0.1 0.1"
+          rotation="0 0 0"
+          material="opacity: 0; transparent: true"
+          look-at="[camera]"
+        ></a-entity>
+
+        <a-entity
+          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
+          position="-0.5 0.5 0"
+          scale="0.1 0.1 0.1"
+          rotation="0 0 0"
+          material="opacity: 0; transparent: true"
+          look-at="[camera]"
+        ></a-entity>
+
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
           position="-0.7 0 0"
@@ -93,94 +99,31 @@
           look-at="[camera]"
         ></a-entity>
 
-        <!-- Dodatkowe pozycje na ukos dla lepszego rozmieszczenia -->
-        <!-- Prawy przód -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="0.5 0 0.5"
+          position="-0.5 -0.5 0"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
         ></a-entity>
 
-        <!-- Lewy przód -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="-0.5 0 0.5"
+          position="0 -0.7 0"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
         ></a-entity>
 
-        <!-- Prawy tył -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="0.5 0 -0.5"
+          position="0.5 -0.5 0"
           scale="0.1 0.1 0.1"
           rotation="0 0 0"
           material="opacity: 0; transparent: true"
           look-at="[camera]"
-        ></a-entity>
-
-        <!-- Lewy tył -->
-        <a-entity
-          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="-0.5 0 -0.5"
-          scale="0.1 0.1 0.1"
-          rotation="0 0 0"
-          material="opacity: 0; transparent: true"
-          look-at="[camera]"
-        ></a-entity>
-
-        <!-- Animowane oczy (zachowane z poprzedniej wersji) -->
-        <!-- Pierwsza mniejsza rzeźba (lewa strona) - obraca się w jedną stronę -->
-        <a-entity
-          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="0.5 0 0"
-          scale="0.1 0.1 0.1"
-          rotation="0 0 -90"
-          material="opacity: 0; transparent: true"
-          animation="property: rotation; to: 360 360 360; loop: true; dur: 8000; easing: linear"
-          animation__2="property: rotation; from: 0 0 25; to: 360 360 385; loop: true; dur: 6000; easing: linear"
-          animation__3="property: position; to: 0.5 0 0.5; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
-        ></a-entity>
-
-        <!-- Druga mniejsza rzeźba (prawa strona) - obraca się w jedną stronę -->
-        <a-entity
-          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="-0.5 0 0"
-          scale="0.1 0.1 0.1"
-          rotation="0 0 -90"
-          material="opacity: 0; transparent: true"
-          animation="property: rotation; to: 360 405 335; loop: true; dur: 10000; easing: linear"
-          animation__2="property: rotation; from: 0 45 -25; to: 360 405 335; loop: true; dur: 7000; easing: linear"
-          animation__3="property: position; to: -0.5 0 -0.5; loop: true; dur: 4000; dir: alternate; easing: easeInOutSine"
-        ></a-entity>
-
-        <!-- Trzecia mniejsza rzeźba (góra) - obraca się w PRZECIWNĄ stronę -->
-        <a-entity
-          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="0 0 0.7"
-          scale="0.1 0.1 0.1"
-          rotation="0 45 -90"
-          material="opacity: 0; transparent: true"
-          animation="property: rotation; to: -360 -360 -360; loop: true; dur: 8000; easing: linear"
-          animation__2="property: rotation; from: 0 0 25; to: -360 -360 -385; loop: true; dur: 6000; easing: linear"
-          animation__3="property: position; to: 0 0.7 0.5; loop: true; dur: 3000; dir: alternate; easing: easeInOutSine"
-        ></a-entity>
-
-        <!-- Czwarta mniejsza rzeźba (dół) - obraca się w PRZECIWNĄ stronę -->
-        <a-entity
-          gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
-          position="0 0 -0.7"
-          scale="0.1 0.1 0.1"
-          rotation="0 45 -90"
-          material="opacity: 0; transparent: true"
-          animation="property: rotation; to: -360 -405 -335; loop: true; dur: 10000; easing: linear"
-          animation__2="property: rotation; from: 0 45 -25; to: -360 -405 -335; loop: true; dur: 7000; easing: linear"
-          animation__3="property: position; to: 0 -0.7 -0.5; loop: true; dur: 4000; dir: alternate; easing: easeInOutSine"
         ></a-entity>
 
       </a-marker>
