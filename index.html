@@ -41,7 +41,13 @@
   <body>
     <a-scene embedded arjs="patternRatio: 0.80">
       <a-marker type="pattern" url="https://raw.githubusercontent.com/solrime/lokalni/refs/heads/main/pattern-adobe-express-qr-code%20(13).patt">
-
+      <a-image
+          src="/home/project/SCAN ME.png"
+          position="0 1.5 0"
+          width="1"
+          height="0.5"
+          look-at="[camera]"
+        ></a-image>
         <!-- Główna rzeźba (oko) - patrzy na kamerę -->
         <a-entity
           gltf-model="url(https://cdn.tinyglb.com/models/35282dbf5d3f49878a1f49979bc1b64c.glb)"
